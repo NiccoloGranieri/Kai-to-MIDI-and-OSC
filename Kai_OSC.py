@@ -21,7 +21,7 @@ def gestureEvent(ev):
     gestureString = ev.gesture
     if (str(gestureString) == "Gesture.swipeUp"):
         client.send_message("/gesture", 1)
-        print("yes")
+        print("down")
     elif (str(gestureString) == "Gesture.swipeDown"):
         client.send_message("/gesture", 2)
     elif (str(gestureString) == "Gesture.swipeLeft"):
@@ -40,6 +40,15 @@ def quatEv(ev):
     client.send_message("/quatY", ev.quaternion.y)
     client.send_message("/quatZ", ev.quaternion.z)
 
+def fingersEv(ev):
+    print("Happening")
+    client.send_message("/littleFinger", ev.littleFinger)
+    client.send_message("/ringFinger", ev.ringFinger)
+    client.send_message("/middleFinger", ev.middleFinger)
+    client.send_message("/indexFinger", ev.indexFinger)
+
+
+
 # Use your module's ID and secret here
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -56,13 +65,13 @@ if not success:
     exit(1)
 
 # Set the default Kai to record gestures and accelerometer readings
-module.setCapabilities(module.DefaultKai, KaiCapabilities.GestureData | KaiCapabilities.PYRData| KaiCapabilities.QuaternionData)
+module.setCapabilities(module.DefaultKai, KaiCapabilities.GestureData | KaiCapabilities.PYRData | KaiCapabilities.QuaternionData | KaiCapabilities.FingerShortcutData)
 
 # Register event listeners
 module.DefaultKai.register_event_listener(Events.GestureEvent, gestureEvent)
 module.DefaultKai.register_event_listener(Events.PYREvent, pyrEv)
 module.DefaultKai.register_event_listener(Events.QuaternionEvent, quatEv)
-
+module.DefaultKai.register_event_listener(Events.FingerShortcutEvent, fingersEv)
 
 # module.DefaultKai.register_event_listener(Events.AccelerometerEvent, accelerometerEv)
 # module.DefaultKai.register_event_listener(Events.GyroscopeEvent, gyroscopeEv)
