@@ -1,0 +1,3 @@
+[submodule "kai-python"]
+	path = kai-python
+	url = https://NiccoloGranieri@github.com/vicara-hq/kai-python.git
