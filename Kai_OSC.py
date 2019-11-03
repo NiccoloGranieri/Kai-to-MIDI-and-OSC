@@ -61,12 +61,13 @@ if not success:
     exit(1)
 
 # Set the default Kai to record gestures and accelerometer readings
-module.setCapabilities(module.DefaultKai, KaiCapabilities.GestureData | KaiCapabilities.PYRData| KaiCapabilities.QuaternionData)
+module.setCapabilities(module.DefaultKai, KaiCapabilities.GestureData | KaiCapabilities.PYRData | KaiCapabilities.QuaternionData | KaiCapabilities.FingerShortcutData)
 
 # Register event listeners
 module.DefaultKai.register_event_listener(Events.GestureEvent, gestureEvent)
 module.DefaultKai.register_event_listener(Events.PYREvent, pyrEv)
 module.DefaultKai.register_event_listener(Events.QuaternionEvent, quatEv)
+module.DefaultKai.register_event_listener(Events.FingerShortcutEvent, fingersEv)
 
 
 # module.DefaultKai.register_event_listener(Events.AccelerometerEvent, accelerometerEv)
