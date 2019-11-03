@@ -24,35 +24,36 @@ PYR_MIDI = (127 - 0)
 
 # Event listener functions
 def gestureEvent(ev):
-    gestureString = ev.gesture
-    if (str(gestureString) == "Gesture.swipeUp"):
-        print(1)
-        cc_gestureOne_On = [0xB0, 0, 127]
-        cc_gestureOne_Off = [0xB0, 0, 0]
-        midiout.send_message(cc_gestureOne_On)
-        time.sleep(1.0)
-        midiout.send_message(cc_gestureOne_Off)
-    elif (str(gestureString) == "Gesture.swipeDown"):
-        print(2)
-        cc_gestureTwo_On = [0xB0, 1, 127]
-        cc_gestureTwo_Off = [0xB0, 1, 0]
-        midiout.send_message(cc_gestureTwo_On)
-        time.sleep(1.0)
-        midiout.send_message(cc_gestureTwo_Off)
-    elif (str(gestureString) == "Gesture.swipeLeft"):
-        print(3)
-        cc_gestureThree_On = [0xB0, 2, 127]
-        cc_gestureThree_Off = [0xB0, 2, 0]
-        midiout.send_message(cc_gestureThree_On)
-        time.sleep(1.0)
-        midiout.send_message(cc_gestureThree_Off)
-    elif (str(gestureString) == "Gesture.swipeRight"):
-        print(4)
-        cc_gestureFour_On = [0xB0, 3, 127]
-        cc_gestureFour_Off = [0xB0, 3, 0]
-        midiout.send_message(cc_gestureFour_On)
-        time.sleep(1.0)
-        midiout.send_message(cc_gestureFour_Off)
+    pass
+    # gestureString = ev.gesture
+    # if (str(gestureString) == "Gesture.swipeUp"):
+    #     print(1)
+    #     cc_gestureOne_On = [0xB0, 0, 127]
+    #     cc_gestureOne_Off = [0xB0, 0, 0]
+    #     midiout.send_message(cc_gestureOne_On)
+    #     time.sleep(1.0)
+    #     midiout.send_message(cc_gestureOne_Off)
+    # elif (str(gestureString) == "Gesture.swipeDown"):
+    #     print(2)
+    #     cc_gestureTwo_On = [0xB0, 1, 127]
+    #     cc_gestureTwo_Off = [0xB0, 1, 0]
+    #     midiout.send_message(cc_gestureTwo_On)
+    #     time.sleep(1.0)
+    #     midiout.send_message(cc_gestureTwo_Off)
+    # elif (str(gestureString) == "Gesture.swipeLeft"):
+    #     print(3)
+    #     cc_gestureThree_On = [0xB0, 2, 127]
+    #     cc_gestureThree_Off = [0xB0, 2, 0]
+    #     midiout.send_message(cc_gestureThree_On)
+    #     time.sleep(1.0)
+    #     midiout.send_message(cc_gestureThree_Off)
+    # elif (str(gestureString) == "Gesture.swipeRight"):
+    #     print(4)
+    #     cc_gestureFour_On = [0xB0, 3, 127]
+    #     cc_gestureFour_Off = [0xB0, 3, 0]
+    #     midiout.send_message(cc_gestureFour_On)
+    #     time.sleep(1.0)
+    #     midiout.send_message(cc_gestureFour_Off)
     
 def pyrEv(ev):
     pos_Pitch = ev.pitch + 179
