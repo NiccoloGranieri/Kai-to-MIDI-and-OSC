@@ -1,8 +1,5 @@
 # Kai-to-MIDI-and-OSC
 
-<<<<<<< Updated upstream
-Python application that collects gestural data from the [Kai Gesture Controller](https://vicara.co) and parses it as MIDI and/or OSC data.
-=======
 A collection of scripts that gather gestural data from the [Kai Gesture Controller](https://vicara.co) and parse it as MIDI and/or OSC data.
 
 ## Setup instructions
@@ -79,4 +76,3 @@ The data coming from the infrared sensors is sent as a single boolean message pe
 - `/ringFinger bool(0-1)`
 - `/middleFinger bool(0-1)`
 - `/indexFinger bool(0-1)`
->>>>>>> Stashed changes

@@ -21,10 +21,6 @@ def gestureEvent(ev):
     gestureString = ev.gesture
     if (str(gestureString) == "Gesture.swipeUp"):
         client.send_message("/gesture", 1)
-<<<<<<< Updated upstream
-        print("yes")
-=======
->>>>>>> Stashed changes
     elif (str(gestureString) == "Gesture.swipeDown"):
         client.send_message("/gesture", 2)
     elif (str(gestureString) == "Gesture.swipeLeft"):
@@ -43,15 +39,12 @@ def quatEv(ev):
     client.send_message("/quatY", ev.quaternion.y)
     client.send_message("/quatZ", ev.quaternion.z)
 
-<<<<<<< Updated upstream
-=======
 def fingersEv(ev):
     client.send_message("/littleFinger", ev.littleFinger)
     client.send_message("/ringFinger", ev.ringFinger)
     client.send_message("/middleFinger", ev.middleFinger)
     client.send_message("/indexFinger", ev.indexFinger)
 
->>>>>>> Stashed changes
 # Use your module's ID and secret here
 config = configparser.ConfigParser()
 config.read("config.ini")
