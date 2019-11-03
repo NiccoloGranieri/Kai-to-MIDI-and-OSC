@@ -76,3 +76,33 @@ The data coming from the infrared sensors is sent as a single boolean message pe
 - `/ringFinger bool(0-1)`
 - `/middleFinger bool(0-1)`
 - `/indexFinger bool(0-1)`
+
+## Kai_MIDI
+
+The Kai_MIDI script sends data in the following format:
+
+#### Pitch, Yaw, Roll
+
+Pitch, Yaw and Roll are sent as an MIDI value over control channels 4, 5 and 6.
+
+- Pitch = MIDI cc 4
+- Yaw = MIDI cc 5
+- Roll = MIDI cc 6
+
+#### Quaternion Data
+
+Quaternion data is send as a MIDI value over control channels 7, 8, 9 and 10.
+
+- Quaternion W = MIDI cc 7
+- Quaternion X = MIDI cc 8
+- Quaternion Y = MIDI cc 9
+- Quaternion Z = MIDI cc 10
+
+#### Fingers Data
+
+The data coming from the infrared sensors is sent as MIDI on/off message (0-127) over control channels 11, 12, 13 and 14.
+
+- Little Finger = MIDI cc 11
+- Ring Finger = MIDI cc 12
+- Middle Finger = MIDI cc 13
+- Index Finger - MIDI cc 14

@@ -24,35 +24,36 @@ PYR_MIDI = (127 - 0)
 
 # Event listener functions
 def gestureEvent(ev):
-    gestureString = ev.gesture
-    if (str(gestureString) == "Gesture.swipeUp"):
-        print(1)
-        cc_gestureOne_On = [0xB0, 0, 127]
-        cc_gestureOne_Off = [0xB0, 0, 0]
-        midiout.send_message(cc_gestureOne_On)
-        time.sleep(1.0)
-        midiout.send_message(cc_gestureOne_Off)
-    elif (str(gestureString) == "Gesture.swipeDown"):
-        print(2)
-        cc_gestureTwo_On = [0xB0, 1, 127]
-        cc_gestureTwo_Off = [0xB0, 1, 0]
-        midiout.send_message(cc_gestureTwo_On)
-        time.sleep(1.0)
-        midiout.send_message(cc_gestureTwo_Off)
-    elif (str(gestureString) == "Gesture.swipeLeft"):
-        print(3)
-        cc_gestureThree_On = [0xB0, 2, 127]
-        cc_gestureThree_Off = [0xB0, 2, 0]
-        midiout.send_message(cc_gestureThree_On)
-        time.sleep(1.0)
-        midiout.send_message(cc_gestureThree_Off)
-    elif (str(gestureString) == "Gesture.swipeRight"):
-        print(4)
-        cc_gestureFour_On = [0xB0, 3, 127]
-        cc_gestureFour_Off = [0xB0, 3, 0]
-        midiout.send_message(cc_gestureFour_On)
-        time.sleep(1.0)
-        midiout.send_message(cc_gestureFour_Off)
+    pass
+    # gestureString = ev.gesture
+    # if (str(gestureString) == "Gesture.swipeUp"):
+    #     print(1)
+    #     cc_gestureOne_On = [0xB0, 0, 127]
+    #     cc_gestureOne_Off = [0xB0, 0, 0]
+    #     midiout.send_message(cc_gestureOne_On)
+    #     time.sleep(1.0)
+    #     midiout.send_message(cc_gestureOne_Off)
+    # elif (str(gestureString) == "Gesture.swipeDown"):
+    #     print(2)
+    #     cc_gestureTwo_On = [0xB0, 1, 127]
+    #     cc_gestureTwo_Off = [0xB0, 1, 0]
+    #     midiout.send_message(cc_gestureTwo_On)
+    #     time.sleep(1.0)
+    #     midiout.send_message(cc_gestureTwo_Off)
+    # elif (str(gestureString) == "Gesture.swipeLeft"):
+    #     print(3)
+    #     cc_gestureThree_On = [0xB0, 2, 127]
+    #     cc_gestureThree_Off = [0xB0, 2, 0]
+    #     midiout.send_message(cc_gestureThree_On)
+    #     time.sleep(1.0)
+    #     midiout.send_message(cc_gestureThree_Off)
+    # elif (str(gestureString) == "Gesture.swipeRight"):
+    #     print(4)
+    #     cc_gestureFour_On = [0xB0, 3, 127]
+    #     cc_gestureFour_Off = [0xB0, 3, 0]
+    #     midiout.send_message(cc_gestureFour_On)
+    #     time.sleep(1.0)
+    #     midiout.send_message(cc_gestureFour_Off)
     
 def pyrEv(ev):
     pos_Pitch = ev.pitch + 179
@@ -71,11 +72,36 @@ def pyrEv(ev):
     midiout.send_message(cc_Roll)
 
 def quatEv(ev):
-    pass
-    # client.send_message("/quatW", ev.quaternion.w)
-    # client.send_message("/quatX", ev.quaternion.x)
-    # client.send_message("/quatY", ev.quaternion.y)
-    # client.send_message("/quatZ", ev.quaternion.z)
+    MIDI_QuatW = int((ev.quaternion.w + 1) * 63)
+    MIDI_QuatX = int((ev.quaternion.x + 1) * 63)
+    MIDI_QuatY = int((ev.quaternion.y + 1) * 63)
+    MIDI_QuatZ = int((ev.quaternion.z + 1) * 63)
+
+    cc_QuatW = [0xB0, 7, MIDI_QuatW]
+    midiout.send_message(cc_QuatW)
+    cc_QuatX = [0xB0, 8, MIDI_QuatX]
+    midiout.send_message(cc_QuatX)
+    cc_QuatY = [0xB0, 9, MIDI_QuatY]
+    midiout.send_message(cc_QuatY)
+    cc_QuatZ = [0xB0, 10, MIDI_QuatZ]
+    midiout.send_message(cc_QuatZ)
+
+def fingersEv(ev):
+    MIDI_LittleF = ev.littleFinger * 127
+    MIDI_RingF = ev.ringFinger * 127
+    MIDI_MiddleF = ev.middleFinger * 127
+    MIDI_IndexF = ev.indexFinger * 127
+
+    cc_LittleF = [0xB0, 11, MIDI_LittleF]
+    midiout.send_message(cc_LittleF)
+    cc_RingF = [0xB0, 12, MIDI_RingF]
+    midiout.send_message(cc_RingF)
+    cc_MiddleF = [0xB0, 13, MIDI_MiddleF]
+    midiout.send_message(cc_MiddleF)
+    cc_IndexF = [0xB0, 14, MIDI_IndexF]
+    midiout.send_message(cc_IndexF)
+
+
 
 # Use your module's ID and secret here
 config = configparser.ConfigParser()
@@ -93,12 +119,13 @@ if not success:
     exit(1)
 
 # Set the default Kai to record gestures and accelerometer readings
-module.setCapabilities(module.DefaultKai, KaiCapabilities.GestureData | KaiCapabilities.PYRData| KaiCapabilities.QuaternionData)
+module.setCapabilities(module.DefaultKai, KaiCapabilities.GestureData | KaiCapabilities.PYRData | KaiCapabilities.QuaternionData | KaiCapabilities.FingerShortcutData)
 
 # Register event listeners
 module.DefaultKai.register_event_listener(Events.GestureEvent, gestureEvent)
 module.DefaultKai.register_event_listener(Events.PYREvent, pyrEv)
 module.DefaultKai.register_event_listener(Events.QuaternionEvent, quatEv)
+module.DefaultKai.register_event_listener(Events.FingerShortcutEvent, fingersEv)
 
 #time.sleep(30) # Delay for testing purposes
 
